@@ -1,12 +1,9 @@
 include:
+  - .deps
+  - .source
   - .configure
 
 {% from "couchdb2/map.jinja" import couchdb with context %}
-
-couchdb_rm_man:
-  # Hack to fix failing `make release`
-  cmd.run:
-    - name:  rm -rf /usr/lib/erlang/man/*
 
 couchdb_make:
   cmd.run:
@@ -14,7 +11,6 @@ couchdb_make:
     - unless: test -f /usr/local/lib/couchdb/bin/couchdb
     - cwd: {{couchdb.tmp_dir}}/apache-couchdb-{{couchdb.version}}
     - require:
-      - cmd: couchdb_rm_man
       - cmd: couchdb_configure
 
 couchdb_install:
