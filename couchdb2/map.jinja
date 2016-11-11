@@ -1,0 +1,39 @@
+{% set os_specific = {
+    'Debian': {
+       'packages': [
+         'build-essential',
+	 'pkg-config',
+         'erlang',
+         'libicu-dev',
+         'libmozjs185-dev',
+         'libcurl4-openssl-dev'
+       ]
+     }
+}
+%}
+
+{% set couchdb  = salt['grains.filter_by'](os_specific, merge=salt['pillar.get']('couchdb:lookup')) %}
+
+
+{% set conf_defaults = {
+    'couchdb' : {
+        'version': '2.0.0',
+        'user': 'couchdb',
+        'tmp_dir': '/tmp/couchdb/'
+    }
+  }
+%}
+
+{# merge default values with the ones received in pillar.get #}
+{% set couchdb  = salt['grains.filter_by'](conf_defaults, 'None', merge=couchdb, default='couchdb') %}
+
+{% set merge_props = {
+     'couchdb': {
+       'source': 'http://tux.rainside.sk/apache/couchdb/source/' + couchdb.version + '/apache-couchdb-' + couchdb.version + '.tar.gz',
+       'source_hash': 'https://www.apache.org/dist/couchdb/source/' + couchdb.version + '/apache-couchdb-' + couchdb.version + '.tar.gz.md5',
+     }
+   }
+%}
+
+
+{% set couchdb = salt['grains.filter_by'](merge_props, 'None', merge=couchdb, default='couchdb') %}
