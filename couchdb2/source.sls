@@ -11,7 +11,7 @@ couchdb_extract_source:
     - source: {{ couchdb.source }}
     - source_hash: {{ couchdb.source_hash }}
     - archive_format: tar
-    - if_missing: {{couchdb.tmp_dir}}/apache-couchdb-{{couchdb.version}}
+    - if_missing: {{ couchdb.tmp_dir }}/apache-couchdb-{{ couchdb.version }}
     - tar_options: z
     - require:
       - file: couchdb_create_tmp

@@ -5,7 +5,7 @@ include:
 
 couchdb_user:
   user.present:
-    - name: {{couchdb.user}}
+    - name: {{ couchdb.user }}
     - fullname: CouchDB Administrator
     - createhome: False
     - home: /usr/local/lib/couchdb
@@ -23,8 +23,8 @@ couchdb_user:
 {% for dir in dirs %}
 {{ dir }}:
   file.directory:
-    - user: {{couchdb.user}}
-    - group: {{couchdb.user}}
+    - user: {{ couchdb.user }}
+    - group: {{ couchdb.user }}
     - mode: 770
     - recurse:
       - user
@@ -44,8 +44,8 @@ couchdb_user:
 {{ dir }}:
   file.directory:
     - mode: 644
-    - user: {{couchdb.user}}
-    - group: {{couchdb.user}}
+    - user: {{ couchdb.user }}
+    - group: {{ couchdb.user }}
     - recurse:
       - user
       - group
