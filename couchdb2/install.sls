@@ -8,7 +8,7 @@ include:
 couchdb_make:
   cmd.run:
     - name: make && make release
-    - unless: test -f /usr/local/lib/couchdb/bin/couchdb
+    - unless: test -f {{couchdb.install_dir}}/bin/couchdb
     - cwd: {{couchdb.tmp_dir}}/apache-couchdb-{{couchdb.version}}
     - require:
       - cmd: couchdb_configure

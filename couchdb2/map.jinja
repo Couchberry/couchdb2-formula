@@ -18,9 +18,10 @@
 	 'erlang-inets',
 	 'erlang-reltool',
        ]
-     }
+    }
 }
 %}
+
 
 {% set couchdb  = salt['grains.filter_by'](os_specific, merge=salt['pillar.get']('couchdb:lookup')) %}
 
@@ -29,10 +30,12 @@
     'couchdb' : {
         'version': '2.0.0',
         'user': 'couchdb',
+	'install_dir': '/usr/local/lib/couchdb',
         'tmp_dir': '/tmp/couchdb'
     }
   }
 %}
+
 
 {# merge default values with the ones received in pillar.get #}
 {% set couchdb  = salt['grains.filter_by'](conf_defaults, 'None', merge=couchdb, default='couchdb') %}
