@@ -16,7 +16,7 @@ couchdb_make:
 couchdb_install:
   cmd.run:
     - name: cp -r rel/couchdb /usr/local/lib
-    - unless: test -f /usr/local/lib/couchdb/bin/couchdb
+    - unless: test -f {{couchdb.install_dir}}/bin/couchdb
     - cwd: {{couchdb.tmp_dir}}/apache-couchdb-{{couchdb.version}}
     - require:
       - cmd: couchdb_make
