@@ -20,3 +20,10 @@ couchdb_install:
     - cwd: {{ couchdb.tmp_dir }}/apache-couchdb-{{ couchdb.version }}
     - require:
       - cmd: couchdb_make
+
+couchdb_post_install:
+  # Remove temporary directory after installation
+  file.absent:
+    - name: {{ couchdb.tmp_dir }}
+    - require:
+      - cmd: couchdb_install
