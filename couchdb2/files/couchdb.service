@@ -1,0 +1,15 @@
+[Unit]
+Description=CouchDB Server
+After=network.target
+
+[Service]
+User=couchdb
+Group=couchdb
+Type=simple
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+ExecStart={{ binary }}
+
+[Install]
+WantedBy=multi-user.target

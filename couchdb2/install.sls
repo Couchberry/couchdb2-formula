@@ -27,3 +27,21 @@ couchdb_post_install:
     - name: {{ couchdb.tmp_dir }}
     - require:
       - cmd: couchdb_install
+
+couchdb_systemd_unit:
+  file.managed:
+    - name: /etc/systemd/system/couchdb.service
+    - source: salt://couchdb2/files/couchdb.service
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - context:
+      binary: {{ couchdb.install_dir }}/bin/couchdb
+    - require:
+      - cmd: couchdb_install
+
+  module.run:
+    - name: service.systemctl_reload
+    - onchanges:
+      - file: couchdb_systemd_unit
