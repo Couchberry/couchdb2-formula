@@ -7,6 +7,7 @@ include:
 {% from "couchdb2/map.jinja" import couchdb with context %}
 
 couchdb_make:
+  # build the Couchdb from sources
   cmd.run:
     - name: make && make release
     - unless: test -f {{ couchdb.install_dir }}/bin/couchdb
@@ -15,6 +16,7 @@ couchdb_make:
       - cmd: couchdb_configure
 
 couchdb_install:
+  # "install" the release of Couchdb after build
   cmd.run:
     - name: cp -r rel/couchdb {{ couchdb.install_dir }}
     - unless: test -f {{ couchdb.install_dir }}/bin/couchdb
@@ -30,6 +32,7 @@ couchdb_post_install:
       - cmd: couchdb_install
 
 couchdb_systemd_unit:
+  # install systemd unit file for Couchdb, so that the service can be started
   file.managed:
     - name: /etc/systemd/system/couchdb.service
     - source: salt://couchdb2/files/couchdb.service
@@ -42,12 +45,15 @@ couchdb_systemd_unit:
     - require:
       - cmd: couchdb_install
 
+  # In case the unit file changed, systemd needs to reload unit files
   module.run:
     - name: service.systemctl_reload
     - onchanges:
       - file: couchdb_systemd_unit
 
 
+# List of directories on which we need to adjust permissions
+# The list is (<path>, <dir_permissions>, <file_permissions>)
 {% set dirs = [
     (couchdb.install_dir, 750, 640),
     (couchdb.install_dir + '/etc/default.d', 750, 640),
