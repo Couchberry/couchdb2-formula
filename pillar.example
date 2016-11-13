@@ -1,0 +1,8 @@
+couchdb:
+  version: '2.0.0'
+  user: 'couchdb'
+  install_dir: '/ust/local/lib/couchdb'
+  tmp_dir: '/tmp/couchdb'
+
+{#- vim:ft=sls
+-#}
