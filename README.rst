@@ -19,8 +19,8 @@ Available states
     :local:
 
 
-``couchdb.deps``
-----------------
+couchdb.deps
+------------
 
 Installs compilation and runtime (OS Specific) dependencies.
 
