@@ -48,6 +48,15 @@ couchdb.user
 couchdb.service
 ---------------
 
+
+Limitations
+===========
+
+* packages defined only for Debian
+
+* does not include states for cluster setup
+
+
 Credits
 =======
 
