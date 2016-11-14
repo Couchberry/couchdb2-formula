@@ -1,3 +1,5 @@
+.. image:: https://travis-ci.org/Couchberry/couchdb2-formula.svg?branch=master
+    :target: https://travis-ci.org/Couchberry/couchdb2-formula
 
 ================
 CouchDB2-Formula
